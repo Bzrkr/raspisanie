@@ -165,7 +165,7 @@ const dayNames = ["Воскресенье", "Понедельник", "Втор�
     for (const aud of IPEauditories) {
         const audContainer = document.createElement('div');
         audContainer.className = 'auditory';
-        audContainer.innerText = `-------------------------${aud}-------------------------`;
+        audContainer.innerText = `-----------------${aud}-----------------`;
         schedulesContainer.appendChild(audContainer);
 
         // Получаем текущее расписание
