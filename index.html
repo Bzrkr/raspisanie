@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <title>Заполненность аудиторий</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 19px;
+            margin: 0;
+            min-height: 100vh;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Изменено с center на flex-start */
+            padding: 20px; /* Добавлено для отступов по краям на мобильных */
+        }
+
+        /* Стили для карточки */
+        .card {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 620px;
+            max-width: 90%; /* Добавлено для адаптивности */
+            box-sizing: border-box;
+            text-align: center;
+            margin-top: 20px; /* Отступ сверху */
+            margin-bottom: 20px; /* Отступ снизу */
+            display: flex;
+            flex-direction: column;
+            min-height: 0; /* Важно для правильного растягивания */
+        }
+
+        #schedules {
+            overflow-y: auto; /* Добавляем прокрутку если контента много */
+            
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #ccc;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        /* Для мобильных устройств */
+        @media (max-width: 600px) {
+            .card {
+                width: 95%;
+                padding: 15px;
+            }
+            body {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <label for="datePicker">Выберите дату: </label>
+        <input type="date" id="datePicker"> 
+        <button id="sendtg" onclick="copyAndSend()">Отправить</button>
+        <br>
+        <br>
+        <hr>
+        <br>
+        <div id="weekDisplay">Загрузка недели...</div>
+        <br>
+        <hr>
+        <br>
+        <div id="loading">Загрузка ⏳</div>
+        <div id="schedules"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
