@@ -44,7 +44,7 @@
                 document.getElementById('datePicker').valueAsDate = today;
                 
                 // Обновляем отображение недели
-                document.getElementById('weekDisplay').textContent = `${currentWeekNumber}-я учебная неделя`;
+                document.getElementById('weekDisplay').textContent = `${currentWeekNumber}-я учебная неделя 🗓️`;
                 
                 // Загружаем расписание для текущей даты
                 await updateSchedule(today, currentWeekNumber);
