@@ -183,7 +183,7 @@
                 selectedDate.setHours(0, 0, 0, 0);
                 
                 const weekNumber = calculateWeekNumber(selectedDate);
-                document.getElementById('weekDisplay').textContent = `${weekNumber}-я учебная неделя`;
+                document.getElementById('weekDisplay').textContent = `${weekNumber}-я учебная неделя 🗓️`;
                 
                 await updateSchedule(selectedDate, weekNumber);
             });
