@@ -108,7 +108,7 @@
                                 (lessonDate && date.toDateString() === lessonDate.toDateString())) {
                                 
                                 const timeRange = `${lesson.startLessonTime}—${lesson.endLessonTime}`;
-                                schedule[timeRange] = `${lesson.subject} (${lesson.lessonTypeAbbrev}) ${teacher.fio}`;
+                                schedule[timeRange] = `${lesson.subject} (${lesson.lessonTypeAbbrev}) ${teacher.fio} ${lesson.studentGroups?.map(g => `гр. ${g.name}`).join(', ') || 'нет группы'}`;
                             }
                         }
                     }
@@ -141,7 +141,7 @@
                 for (const result of results) {
                     const audContainer = document.createElement('div');
                     audContainer.className = 'auditory';
-                    audContainer.innerText = `-----------------${result.auditory}-----------------`;
+                    audContainer.innerText = `—————————${result.auditory}—————————`;
                     schedulesContainer.appendChild(audContainer);
                     
                     // Сортируем занятия по времени
