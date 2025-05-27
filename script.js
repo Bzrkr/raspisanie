@@ -119,47 +119,54 @@
         }
 
         async function updateSchedule(date, weekNumber) {
-            if (!weekNumber) {
-                console.error('Не удалось определить номер недели');
-                return;
-            }
+    if (!weekNumber) {
+        console.error('Не удалось определить номер недели');
+        return;
+    }
 
-            document.getElementById('loading').style.display = 'block';
-            try {
-                const schedulesContainer = document.getElementById('schedules');
-                schedulesContainer.innerHTML = '';
+    document.getElementById('loading').style.display = 'block';
+    try {
+        const schedulesContainer = document.getElementById('schedules');
+        schedulesContainer.innerHTML = '';
+        
+        const promises = IPEauditories.map(async (auditory) => {
+            const schedule = await getScheduleForAuditory(auditory, date, weekNumber);
+            return { auditory, schedule };
+        });
+        
+        const results = await Promise.all(promises);
+        
+        for (const result of results) {
+            const audContainer = document.createElement('div');
+            audContainer.className = 'auditory';
+            audContainer.innerHTML = `<strong>${result.auditory}</strong>`;
+            schedulesContainer.appendChild(audContainer);
+            
+            const sortedTimes = Object.keys(result.schedule).sort();
+            for (const time of sortedTimes) {
+                const lessonDiv = document.createElement('div');
+                lessonDiv.className = 'lesson';
                 
-                // Загружаем расписание для всех аудиторий параллельно
-                const promises = IPEauditories.map(async (auditory) => {
-                    const schedule = await getScheduleForAuditory(auditory, date, weekNumber);
-                    return { auditory, schedule };
-                });
+                // Получаем текст занятия
+                const lessonText = result.schedule[time];
                 
-                const results = await Promise.all(promises);
+                // Заменяем номера групп на кликабельные ссылки
+                const textWithLinks = lessonText.replace(
+                    /гр\. (\d+)/g, 
+                    '<a href="https://iis.bsuir.by/schedule/$1" target="_blank" class="group-link">гр. $1</a>'
+                );
                 
-                // Отображаем результаты
-                for (const result of results) {
-                    const audContainer = document.createElement('div');
-                    audContainer.className = 'auditory';
-                    audContainer.innerText = `—————————${result.auditory}—————————`;
-                    schedulesContainer.appendChild(audContainer);
-                    
-                    // Сортируем занятия по времени
-                    const sortedTimes = Object.keys(result.schedule).sort();
-                    for (const time of sortedTimes) {
-                        const lessonDiv = document.createElement('div');
-                        lessonDiv.className = 'lesson';
-                        lessonDiv.innerText = `${time} ————— ${result.schedule[time]}`;
-                        audContainer.appendChild(lessonDiv);
-                    }
-                }
-            } catch (error) {
-                console.error('Ошибка при обновлении расписания:', error);
-                alert('Произошла ошибка при загрузке расписания');
-            } finally {
-                document.getElementById('loading').style.display = 'none';
+                lessonDiv.innerHTML = `${time} ————— ${textWithLinks}`;
+                audContainer.appendChild(lessonDiv);
             }
         }
+    } catch (error) {
+        console.error('Ошибка при обновлении расписания:', error);
+        alert('Произошла ошибка при загрузке расписания');
+    } finally {
+        document.getElementById('loading').style.display = 'none';
+    }
+}
 
         function copyAndSend() {
             const textToCopy = document.getElementById('schedules').innerText;
