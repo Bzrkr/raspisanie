@@ -139,7 +139,7 @@
         for (const result of results) {
             const audContainer = document.createElement('div');
             audContainer.className = 'auditory';
-            audContainer.innerHTML = `<strong>${result.auditory}</strong>`;
+            audContainer.innerHTML = `——————<strong>${result.auditory}</strong>——————`;
             schedulesContainer.appendChild(audContainer);
             
             const sortedTimes = Object.keys(result.schedule).sort();
