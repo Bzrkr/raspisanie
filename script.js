@@ -44,7 +44,8 @@
                 document.getElementById('datePicker').valueAsDate = today;
                 
                 // Обновляем отображение недели
-                document.getElementById('weekDisplay').textContent = `${currentWeekNumber}-я учебная неделя 🗓️`;
+                const dayName = dayNames[today.getDay()]; 
+                document.getElementById('weekDisplay').textContent = `${today.toLocaleDateString()} (${dayName}), ${currentWeekNumber}-я учебная неделя 🗓️`;
                 
                 // Загружаем расписание для текущей даты
                 await updateSchedule(today, currentWeekNumber);
@@ -190,7 +191,8 @@
                 selectedDate.setHours(0, 0, 0, 0);
                 
                 const weekNumber = calculateWeekNumber(selectedDate);
-                document.getElementById('weekDisplay').textContent = `${weekNumber}-я учебная неделя 🗓️`;
+                const dayName = dayNames[selectedDate.getDay()]; 
+                document.getElementById('weekDisplay').textContent = `${selectedDate.toLocaleDateString()} (${dayName}), ${weekNumber}-я учебная неделя 🗓️`;
                 
                 await updateSchedule(selectedDate, weekNumber);
             });
