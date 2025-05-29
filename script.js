@@ -57,20 +57,30 @@
             }
         }
 
-        function calculateWeekNumber(selectedDate) {
-            if (!currentWeekNumber) return null;
-            
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            
-            // Разница в днях между выбранной датой и сегодняшним днем
-            const diffTime = selectedDate - today;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            
-            // Вычисляем номер недели
-            let weekNumber = ((currentWeekNumber - 1) + Math.floor(diffDays / 7)) % 4 + 1;
-            return weekNumber <= 0 ? weekNumber + 4 : weekNumber;
-        }
+       function calculateWeekNumber(selectedDate) {
+    if (!currentWeekNumber) return null;
+    
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    // Находим понедельник текущей недели
+    const getMonday = (date) => {
+        const day = date.getDay();
+        const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Понедельник - первый день
+        return new Date(date.setDate(diff));
+    };
+    
+    const currentMonday = getMonday(new Date(today));
+    const selectedMonday = getMonday(new Date(selectedDate));
+    
+    // Разница в неделях между выбранной датой и текущей неделей
+    const diffTime = selectedMonday - currentMonday;
+    const diffWeeks = Math.round(diffTime / (1000 * 60 * 60 * 24 * 7));
+    
+    // Вычисляем номер недели с учётом 4-недельного цикла
+    let weekNumber = ((currentWeekNumber - 1) + diffWeeks) % 4 + 1;
+    return weekNumber <= 0 ? weekNumber + 4 : weekNumber;
+}
 
         function parseDate(dateStr) {
             if (!dateStr) return null;
