@@ -150,7 +150,7 @@
         for (const result of results) {
             const audContainer = document.createElement('div');
             audContainer.className = 'auditory';
-            audContainer.innerHTML = `——————<strong>${result.auditory}</strong>——————`;
+            audContainer.innerHTML = `—<strong>${result.auditory}</strong>—`;
             schedulesContainer.appendChild(audContainer);
             
             const sortedTimes = Object.keys(result.schedule).sort();
@@ -167,7 +167,7 @@
                     '<a href="https://iis.bsuir.by/schedule/$1" target="_blank" class="group-link">гр. $1</a>'
                 );
                 
-                lessonDiv.innerHTML = `${time} ————— ${textWithLinks}`;
+                lessonDiv.innerHTML = `${time} ———— ${textWithLinks}`;
                 audContainer.appendChild(lessonDiv);
             }
         }
