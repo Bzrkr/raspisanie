@@ -167,7 +167,7 @@
                     '<a href="https://iis.bsuir.by/schedule/$1" target="_blank" class="group-link">гр. $1</a>'
                 );
                 
-                lessonDiv.innerHTML = `${time} ———— ${textWithLinks}`;
+                lessonDiv.innerHTML = `${time} —— ${textWithLinks}`;
                 audContainer.appendChild(lessonDiv);
             }
         }
