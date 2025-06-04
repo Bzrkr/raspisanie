@@ -153,7 +153,7 @@
         for (const result of results) {
             const audContainer = document.createElement('div');
             audContainer.className = 'auditory';
-            audContainer.innerHTML = `—<strong>${result.auditory}</strong>—`;
+            audContainer.innerHTML = `———<strong>${result.auditory}</strong>———`;
             schedulesContainer.appendChild(audContainer);
             
             const sortedTimes = Object.keys(result.schedule).sort();
@@ -182,17 +182,28 @@
     }
 }
 
-        function copyAndSend() {
-            const textToCopy = document.getElementById('schedules').innerText;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert('Текст скопирован!');
-                const telegramLink = `tg://msg?text=${encodeURIComponent(textToCopy)}`;
-                window.open(telegramLink, '_blank');
-            }).catch(err => {
-                console.error('Ошибка при копировании текста: ', err);
-                alert('Не удалось скопировать текст');
-            });
-        }
+       function copyAndSend() {
+    // Получаем текст из weekDisplay
+    const weekDisplayText = document.getElementById('weekDisplay').innerText;
+    
+    // Получаем текст из schedules
+    const schedulesText = document.getElementById('schedules').innerText;
+    
+    // Объединяем с отступом (два переноса строки между ними)
+    const textToCopy = `${weekDisplayText}\n\n${schedulesText}`;
+    
+    // Копируем в буфер обмена
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        alert('Текст скопирован!');
+        
+        // Отправляем в Telegram (если нужно)
+        const telegramLink = `tg://msg?text=${encodeURIComponent(textToCopy)}`;
+        window.open(telegramLink, '_blank');
+    }).catch(err => {
+        console.error('Ошибка при копировании текста: ', err);
+        alert('Не удалось скопировать текст');
+    });
+}
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', () => {
