@@ -41,7 +41,10 @@
                 // Устанавливаем текущую дату
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
-                document.getElementById('datePicker').valueAsDate = today;
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                const dd = String(today.getDate()).padStart(2, '0');
+                document.getElementById('datePicker').value = `${yyyy}-${mm}-${dd}`;
                 
                 // Обновляем отображение недели
                 const dayName = dayNames[today.getDay()]; 
