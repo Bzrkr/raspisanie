@@ -40,7 +40,7 @@
                 
                 // Устанавливаем текущую дату
                 const today = new Date();
-                today.setHours(0, 0, 0, 0);
+                //today.setHours(0, 0, 0, 0);
                 const yyyy = today.getFullYear();
                 const mm = String(today.getMonth() + 1).padStart(2, '0');
                 const dd = String(today.getDate()).padStart(2, '0');
@@ -64,7 +64,7 @@
     if (!currentWeekNumber) return null;
     
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    //today.setHours(0, 0, 0, 0);
     
     // Находим понедельник текущей недели
     const getMonday = (date) => {
@@ -85,11 +85,22 @@
     return weekNumber <= 0 ? weekNumber + 4 : weekNumber;
 }
 
-        function parseDate(dateStr) {
+      function parseDate(dateStr) {
             if (!dateStr) return null;
-            const parts = dateStr.split('.');
-            return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-        }
+    try {
+        const parts = dateStr.split('.');
+        if (parts.length !== 3) return null;
+        
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1; // Месяцы 0-11
+        const year = parseInt(parts[2], 10);
+        
+        return new Date(year, month, day);
+    } catch (error) {
+        console.error('Ошибка парсинга даты:', dateStr, error);
+        return null;
+    }
+}
 
         function timeInRange(start, end, target) {
             return start <= target && target <= end;
