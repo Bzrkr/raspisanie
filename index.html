@@ -3,125 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-    <title>Заполненность аудиторий</title>
-    <style>
-       body {
-    font-family: 'Roboto', sans-serif;
-    font-size: 19px;
-    margin: 0;
-    min-height: 100vh;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0; /* Убираем padding из body, переносим его в container */
-    font-family: Arial, sans-serif;
-}
-.group-link {
-    color: #0066cc;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.group-link:hover {
-    text-decoration: underline;
-}
-.container {
-    width: calc(100% - 20px); /* 100% ширины минус 20px (по 10px с каждой стороны) */
-    max-width: 800px;
-    margin: 20px auto; /* Отступ сверху и снизу */
-    background: white;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Важно для правильного расчета ширины */
-}
-
-/* Остальные стили остаются без изменений */
-.auditory {
-  margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    padding: 8px;
-    background-color: #f5f5f5;
-}
-.lesson {
-    
-    margin-top: 10px;
-    padding: 8px;
-    background-color: white;
-    border-radius: 8px;
-    border-left: 3px solid #4CAF50;
-}
-button {
-    padding: 10px 15px;
-    margin: 10px 0;
-    background-color: #2a66e7d0;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-}
-.card {
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    width: 720px;
-    max-width: 97%;
-    box-sizing: border-box;
-    text-align: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-}
-#schedules {
-    overflow-y: auto;
-}
-hr {
-    border: none;
-    border-top: 1px solid #ccc;
-    margin: 10px 0;
-    width: 100%;
-}
-#loading {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    font-size: 24px;
-    text-align: center;
-    padding-top: 20%;
-}
-    </style>
+     <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <title>Расписание кабинетов</title>
+   <link rel="stylesheet" href="styles.css?v=1.0.1">
 </head>
 <body>
-    <div class="card">
-        <label for="datePicker">Выберите дату: </label>
-        <br>
-        <input type="date" id="datePicker"> 
-        <br>
-        <button id="sendtg" onclick="copyAndSend()">Копировать и отправить ⌯⌲</button>
-        <br>
-        <hr>
-        <br>
-        <div id="weekDisplay">Загрузка недели...</div>
-        <br>
-        <hr>
-        <br>
-        <div id="loading">Загрузка ⏳</div>
+<div id="loading">
+    <div class="loader">
+        <div>
+            <ul>
+                <li>
+                    <svg fill="currentColor" viewBox="0 0 90 120">
+                        <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                    </svg>
+                </li>
+                <li>
+                    <svg fill="currentColor" viewBox="0 0 90 120">
+                        <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                    </svg>
+                </li>
+                <li>
+                    <svg fill="currentColor" viewBox="0 0 90 120">
+                        <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                    </svg>
+                </li>
+                <li>
+                    <svg fill="currentColor" viewBox="0 0 90 120">
+                        <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                    </svg>
+                </li>
+                <li>
+                    <svg fill="currentColor" viewBox="0 0 90 120">
+                        <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                    </svg>
+                </li>
+                <li>
+                    <svg fill="currentColor" viewBox="0 0 90 120">
+                        <path d="M90,0 L90,120 L11,120 C4.92486775,120 0,115.075132 0,109 L0,11 C0,4.92486775 4.92486775,0 11,0 L90,0 Z M71.5,81 L18.5,81 C17.1192881,81 16,82.1192881 16,83.5 C16,84.8254834 17.0315359,85.9100387 18.3356243,85.9946823 L18.5,86 L71.5,86 C72.8807119,86 74,84.8807119 74,83.5 C74,82.1745166 72.9684641,81.0899613 71.6643757,81.0053177 L71.5,81 Z M71.5,57 L18.5,57 C17.1192881,57 16,58.1192881 16,59.5 C16,60.8254834 17.0315359,61.9100387 18.3356243,61.9946823 L18.5,62 L71.5,62 C72.8807119,62 74,60.8807119 74,59.5 C74,58.1192881 72.8807119,57 71.5,57 Z M71.5,33 L18.5,33 C17.1192881,33 16,34.1192881 16,35.5 C16,36.8254834 17.0315359,37.9100387 18.3356243,37.9946823 L18.5,38 L71.5,38 C72.8807119,38 74,36.8807119 74,35.5 C74,34.1192881 72.8807119,33 71.5,33 Z"></path>
+                    </svg>
+                </li>
+            </ul>
+        </div>
+        <span>Загрузка данных...</span>
+    </div>
+</div>
+    
+    <div id="controls">
+    <button id="prevDayBtn" class="nav-btn">←</button>
+    <input type="date" id="datePicker">
+    <button id="nextDayBtn" class="nav-btn">→</button>
+    <span id="weekDisplay"></span>
+
+    <label class="checkbox-container mobile-only">
+        <input type="checkbox" id="showAllAuditoriesCheckbox"> Показать все кабинеты
+        <span class="checkmark"></span>
+    </label>
+    <label class="checkbox-container">
+        <input type="checkbox" id="show602Checkbox"> 602-2 к.
+        <span class="checkmark"></span>
+    </label>
+    
+</div>
+    <div id="schedules-container">
         <div id="schedules"></div>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
+
+
